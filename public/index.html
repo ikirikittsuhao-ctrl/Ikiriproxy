@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxy</title>
+    <style>
+        body { font-family: sans-serif; background: #121212; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .container { text-align: center; width: 90%; max-width: 500px; }
+        input { width: 100%; padding: 12px; background: #222; border: 1px solid #444; border-radius: 4px; color: #fff; box-sizing: border-box; font-size: 16px; }
+        button { margin-top: 10px; width: 100%; padding: 12px; background: #007acc; border: none; border-radius: 4px; color: #fff; font-size: 16px; cursor: pointer; }
+        button:hover { background: #005999; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Proxy</h1>
+        <form id="proxy-form">
+            <input type="text" id="url-input" placeholder="https://example.com" required>
+            <button type="submit">Go</button>
+        </form>
+    </div>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js', { scope: '/' });
+        }
+
+        function encodeUrl(url) {
+            return btoa(url).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
+        }
+
+        document.getElementById('proxy-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            let url = document.getElementById('url-input').value.trim();
+            if (!/^https?:\/\//i.test(url)) {
+                url = 'https://' + url;
+            }
+            window.location.href = '/proxy/' + encodeUrl(url);
+        });
+    </script>
+</body>
+</html>
