@@ -1,0 +1,22 @@
+{
+  "name": "advanced-web-proxy",
+  "version": "1.0.0",
+  "description": "High-performance web proxy with runtime rewriting and API virtualization",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "acorn": "^8.12.1",
+    "express": "^4.19.2",
+    "magic-string": "^0.30.10",
+    "parse5": "^7.1.2",
+    "postcss": "^8.4.38",
+    "undici": "^6.19.2",
+    "ws": "^8.17.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "private": true
+}
